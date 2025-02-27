@@ -1,5 +1,4 @@
 console.log("\nSJF CPU Scheduling Algorithm:\n");
-
 let processes = [
     { id: 1, arrival: 2, burst: 6 },
     { id: 2, arrival: 5, burst: 2 },
@@ -9,19 +8,16 @@ let processes = [
 ];
 
 console.log("Initial Processes:", processes);
-
 // Sort by Arrival Time
 processes.sort((a, b) => a.arrival - b.arrival);
 
 let completed = [], time = 0, totalTA = 0, totalWT = 0;
-
 while (processes.length > 0) {
     let available = processes.filter(p => p.arrival <= time);
     if (available.length === 0) {
         time = processes[0].arrival;
         available = [processes[0]];
     }
-    
     // Select the process with the shortest burst time
     available.sort((a, b) => a.burst - b.burst);
     let current = available.shift();
@@ -36,7 +32,6 @@ while (processes.length > 0) {
     completed.push({ ...current, completion: time, turnAround, waiting });
     processes = processes.filter(p => p.id !== current.id);
 }
-
 console.log("\nFinal Process Execution Order:");
 completed.forEach(p => console.log(`Process ${p.id} | Completion: ${p.completion} | Turnaround: ${p.turnAround} | Waiting: ${p.waiting}`));
 
